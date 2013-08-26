@@ -37,6 +37,9 @@
 #include "sysctl.h"
 #include "timer.h"
 
+#include "FreeRTOS.h"
+#include "task.h"
+
 #include "uartstdio.h"
 #include "rgb.h"
 
@@ -81,9 +84,27 @@ __error__(char *pcFilename, unsigned long ulLine)
 }
 #endif
 
+#define RUNTASKSTACKSIZE  (150)
+
 void configUART();
 void configPWM();
 void configPWMWide();
+
+
+static void runTask(void *pvParameters){
+  
+  	const char test[] = "Hallo FreeRTOS BillyCPP\n";
+	std::string *target = new std::string(test);
+  
+  	while (1) {
+		UARTwrite(target->c_str(), strlen(target->c_str()));
+		delete target;
+		SysCtlDelay(2000000);
+
+		target = new std::string(test);
+
+	}
+}
 
 //*****************************************************************************
 //
@@ -102,18 +123,8 @@ int main(void) {
 	char tmp[10];
 	memset(tmp, 0xFF, 10);
 
-	const char test[] = "Hallo BillyCPP\n";
-	std::string *target = new std::string(test);
-	//char* target = malloc(sizeof(char) * 30);
-	//strncpy(target, test, 30);
-
 	volatile float p1 = 1.3;
 	float pt = 0.423 * p1;
-
-	//if (strcmp(target, test) != 0) {
-	//	while (1) {
-	//	}
-	//}
 
 	// Enable processor interrupts.
 	IntMasterEnable();
@@ -139,14 +150,12 @@ int main(void) {
 	//
 	configUART();
 
-	while (1) {
-		UARTwrite(target->c_str(), strlen(target->c_str()));
-		delete target;
-		SysCtlDelay(2000000);
-
-		target = new std::string(test);
-
-	}
+	// 
+	xTaskCreate(runTask, (const signed char *)"RunTask", RUNTASKSTACKSIZE, NULL,
+                   1, NULL);
+	
+	// Start Taskscheduler
+	vTaskStartScheduler();
 }
 
 void configUART() {

@@ -13,6 +13,7 @@
  */
 uint64_t get_us_time()
 {
+    /*
     static uint16_t t0;
     static uint64_t tickcount;
 
@@ -28,6 +29,8 @@ uint64_t get_us_time()
     vPortExitCritical();
 
     return tickcount;
+    */
+    return 0;
 }
 
 
@@ -40,6 +43,7 @@ uint64_t get_us_time()
  */
 void delay_us(unsigned long us)
 {
+    /*
     uint16_t  t0 = TIM7->CNT;
     for (;;) {
         int  t = TIM7->CNT;
@@ -51,7 +55,7 @@ void delay_us(unsigned long us)
 
         us -= t - t0;
         t0  = t;
-    }
+    }*/
 }
 
 
@@ -62,7 +66,7 @@ void delay_us(unsigned long us)
  */
 void delay_ms(unsigned long ms)
 {
-    delay_us(ms * 1000);
+    //delay_us(ms * 1000);
 }
 
 
@@ -72,11 +76,11 @@ void delay_ms(unsigned long ms)
  */
 void init_us_timer()
 {
-    RCC_ClocksTypeDef RCC_Clocks;
+    /*RCC_ClocksTypeDef RCC_Clocks;
     RCC_GetClocksFreq(&RCC_Clocks);
 
     RCC->APB1ENR |= RCC_APB1Periph_TIM7;
     TIM7->PSC = (RCC_Clocks.PCLK2_Frequency / 1000000) - 1;
     TIM7->ARR = 0xFFFF;
-    TIM7->CR1 = TIM_CR1_CEN;
+    TIM7->CR1 = TIM_CR1_CEN;*/
 }
