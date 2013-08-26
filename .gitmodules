@@ -4,3 +4,6 @@
 [submodule "lib/StellarisCMSIS"]
 	path = lib/StellarisCMSIS
 	url = https://github.com/tbraunP/StellarisCMSIS.git
+[submodule "lib/FreeRTOS"]
+	path = lib/FreeRTOS
+	url = https://github.com/tbraunP/FreeRTOS.git
