@@ -14,7 +14,7 @@
 
 
 /* set by linker -> value is undefined only the address of the variable is useful */
-#include "syscalls.h"
+#include "syscalls/syscalls.h"
 
 void *_sbrk(int incr) {
 	static unsigned char *heap = NULL;

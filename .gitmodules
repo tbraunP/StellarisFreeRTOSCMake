@@ -1,0 +1,6 @@
+[submodule "lib/StellarisDriverLib"]
+	path = lib/StellarisDriverLib
+	url = https://github.com/tbraunP/StellarisDriverLib.git
+[submodule "lib/StellarisCMSIS"]
+	path = lib/StellarisCMSIS
+	url = https://github.com/tbraunP/StellarisCMSIS.git
