@@ -1561,7 +1561,7 @@ UARTEchoSet(tBoolean bEnable)
 //*****************************************************************************
 #if defined(UART_BUFFERED) || defined(DOXYGEN)
 void
-UARTStdioIntHandler(void)
+UART0_Handler(void)
 {
     unsigned long ulInts;
     char cChar;
